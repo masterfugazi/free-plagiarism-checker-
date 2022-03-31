@@ -1,109 +1,81 @@
-<?php 
+<?php include 'header.php'; ?>
 
-include 'header.php';
-
-if(isset($_GET['query'])) {
-    $query = $_GET['query'];
-    $query; 
-} else {
-    $query = " ";
-}
-// Requesting URL data array
-$postData = array (
-'key' => "14aab70406dccece24d4eac854cf87b9",
-'data' => "'". $query."'"
-);
-$data = http_build_query($postData);
-$url = "https://www.check-plagiarism.com/apis/checkPlag";
-//$url = "https://www.check-plagiarism.com/apis/"; //Checks how many querys have been made
-
-// Initlizing cURL
-$ch =  curl_init();
-
-// URL to submit 
-curl_setopt($ch, CURLOPT_URL, $url);
-
-// Return output instead of outtputting it
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-// wE ARE DAOING A POST REQUEST
-curl_setopt($ch, CURLOPT_POST, 1);
-
-// ADDING THE VARIABLES TO THE REQUEST
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-// EXECUTE THE REQUEST
-$output = curl_exec($ch);
-
-if($output === FALSE) {
-    echo "cURL Error:". curl_error($ch);
-} else {
-    $decode = json_decode($output, true);
-}
-
-curl_close($ch);
-?>
-
-<!-- <h1>Plagiarism Checker</h1>
-<p>THIS IS YOUR DATA:</p>
-<?php 
-print_r($decode);
-?> -->
-<!-- <br>
-<br>
-<br>
-<p>THIS IS THE INITAL ARRAY DATA</p>
-<?php print_r($data); ?>
-<br>
-<br>
-<br> -->
-
-<Section id="hero-section">
+<!-- <?php print_r($decode); ?> 
+<?php print_r($data); ?>  -->
+<body>
+<section id="hero-section">
     <div class="header-tile-section">
-        <h2>Scan Text Here For Plagiarism</h2>
+        <h2>Scan Your Text For Plagiarism</h2>
+        <p>Powered by FreePlagiarismChecks</p>
+        <div class="tool-bar" id="toolbar">
+            <button title="Copy All Your Text" class="icon-btn" id="copy"><img src="./assets/icons/copy.svg" alt="Copy all text"></button>
+            <button title="Delete All Your Text" class="icon-btn" id="del"><img src="./assets/icons/trash.svg" alt="Delete all text"></button>
+            <?php if(isset($_GET['query'])) { ?>
+                <button title="Run a New Scan" id="rescan" class="icon-btn"><img src="./assets/icons/codescan-checkmark.svg" alt="New Scan"></button>
+                <?php } ?>
+                <button title="Show Window" id="show" class="icon-btn" style="display: none;"><img src="./assets/icons/eye.svg" alt="show Window"></button>
+            <div><p id="word-counter"></p></div>
+        </div>
     </div>  
     <div class="form-section">
         <form method="get">
-                <textarea class="main-text-area" name="query" id="test" cols="30" rows="50" spellcheck="true"><?php echo $query; ?></textarea>
+                <textarea class="main-text-area" name="query" id="main-text-box" cols="30" rows="50" spellcheck="true"><?php if(isset($_GET['query'])) { echo $query;} else {}?></textarea>
                     <div class="submit-scan-box">
-                        <input type="submit" name="submit">
-                    </div>
+                    <?php if(isset($_GET['query'])) { ?>
+                        <input type="submit" name="submit" value="Rescan Text">
+                        <?php } else { ?>
+                            <input type="submit" name="submit" value="Scan Text">
+                    <?php } ?>
+                        </div>
             </form>
     </div>  
-</Section>
-<section id="results-section">
-    <div class="results-box">
+</section>
+
         <?php
-            if(empty($decode)) { //Checks if array is empty or not
-                echo 'Nothing to scan yet!';
+            if(!isset($_GET['query'])) { //Checks if array is empty or not
+                    echo '<p class="nothing-to-scan-text">Nothing to scan yet...</p>';
             } else {
                 ?>
-                <h2>Plagiarism Results:</h2> 
-                <?php
-                foreach($decode['details'] as $key => $value) {
-                echo $value['query']  .'<br>';
-                ?> 
-                <p>Here's the url's found!</p> 
+                <div id="p-results" class="results-box" style="display:block;">
+                <div class="p-box-controls">
+                <button title="Close Window" id="hide" class="icon-btn"><img src="./assets/icons/x-circle.svg" alt="Close Window"></button>
+                <button title="Minimize Window" id="min" class="icon-btn"><img src="./assets/icons/eye-closed.svg" alt="minimize"></button>
+                <button style="display: none;" title="Maximize Window" id="max" class="icon-btn"><img src="./assets/icons/eye.svg" alt="minimize"></button>
+                </div>
+                <div class="title-box">
 
-                <?php 
-                $filter = array_filter($value['matched_urls']); //Removes missing array values
-                foreach( $filter as $key => $urls) {
-                    echo $urls . '<br>';
-                } ?>
-                
-                <p>Total Matches: <?php echo $value['totalMatches']  .'<br>'; ?> </p>
+                <div class="title-description">
+                <p>Text scanned:</p>
+                </div>
+                <p class="results-p-bold"><?php echo $decode['query']?></p>
+                <div class="title-description">
+                <p>Total Matches Found:  <span class="results-p-bold"><?php echo $decode['totalMatches']?></span></p>
+                </div>
+                </div>
+                <?php
+                foreach($decode['webs'] as $key => $value) {
+                ?>
+                <div class="results-border">
+                <div class="title-description"><p>Website Title:</p></div>
+                <p class="results-p"><?php echo $value['title'];?></p>
+
+                <div class="title-description"><p>Similair Text:</p></div>
+                    <p class="results-p"><?php echo $value['desc']; ?></p>
+
+                <div class="title-description"><p>Url with similar text:</p></div>
+                <a class="results-link" target="_blank" href="<?php echo $value['url']; ?>"><?php echo $value['url']; ?></a>
+                </div>
                 <?php
                 }
             }
         ?>
-
-<?php 
-        if(isset($_GET['query'])) { ?>
-             <div class="submit-scan-box">
-                <a id="rescan-btn" type="button" href="/p-check/">New Scan <img class="btn-icon" src="./assets/icons/refresh-2-24.png"></a>
-            </div>
-        <?php
-        }
-    ?>
-    </div>
-</section>
+</div>
+<!-- <section id="who-we-are">
+    <div class="content-row">
+<div class="box">1</div>
+<div class="box">2</div>
+<div class="box">3</div>
+</div>
+</section> -->
+</body>
+<script type="text/javascript" src="./assets/main.js"></script>
