@@ -53,6 +53,9 @@ curl_close($ch);
     <meta name="author" content="FreePlagiarismChecks.com">
     <title>Free Plagiarism Checker</title>
     <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/trumbowyg/dist/ui/trumbowyg.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
     <!-- Hotjar Tracking Code for https://freeplagiarismchecks.com -->
 <!-- <script>
     (function(h,o,t,j,a,r){
@@ -65,3 +68,4 @@ curl_close($ch);
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script> -->
 </head>
+<body>

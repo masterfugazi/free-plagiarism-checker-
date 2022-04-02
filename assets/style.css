@@ -179,20 +179,6 @@
     cursor: pointer;
 }
 
-.content-row {
-    display: flex;
-    justify-content: center;
-}
-
-.content-row .box {
-    background-color: #03C197;
-    width: 100%;
-}
-
-.content-row .box:nth-child(even) {
-    background-color: #008d6e; 
-}
-
 .p-box-controls {
     display: flex;
 }
@@ -233,19 +219,18 @@ margin-bottom: 0px;
     color: #7777ff;
     font-size: 10px;
 }
-
+/* 
 button[title]:hover::after {
     content: attr(title);
     background-color: #03C197;
     font-family: roboRegular;
-    /* padding: 2px; */
+    padding: 2px;
     color: #fff;
     position: absolute;
     z-index: 10000;
     width: 100px;
     font-size: 10px;
-}
-
+}  */
 .nothing-to-scan-text {
     font-family: roboMed;
     font-size: 12px;
@@ -304,3 +289,72 @@ button[title]:hover::after {
         right: 0;
     }
 }
+.trumbowyg-box {
+    width: 100%;
+    max-width: 90%;
+    height: 65vh; 
+    border-top: 2px solid #03C197!important;
+    border-bottom: 2px solid #03C197!important;
+    border-left: none!important;
+    border-right: none!important;
+}
+
+.trumbowyg-editor {
+    text-align: left;
+    min-height: 580px!important;
+}
+
+.trumbowyg-box.trumbowyg-editor-visible .trumbowyg-textarea {
+    display: none;
+}
+
+.trumbowyg-button-pane {
+    border-bottom: 2px solid #03C197!important;  
+    background: #fff!important;  
+}
+
+.trumbowyg-button-pane::after {
+    background: none!important;  
+}
+
+.trumbowyg-button-pane .trumbowyg-button-group::after {
+    display: none!important;
+}
+
+/* #editor-container {
+    width: 100%;
+    max-width: 90%;
+    height: 65vh;
+    border: none;
+    outline: none;
+    padding: 20px;
+    font-family: innerRegular;
+    font-size: 18px;
+    line-height: 24px;
+    border-top: 2px solid #03C197;
+    border-bottom: 2px solid #03C197;
+} */
+
+.flex-row-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-box {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    padding: 15px;
+}
+
+.reg-btn {
+    background-color: transparent;
+    font-family: roboMed;
+    padding: 8px;
+    color: #03C197;
+    border: 2px solid #03C197;
+    font-size: 15px;
+    cursor: pointer;
+}
+

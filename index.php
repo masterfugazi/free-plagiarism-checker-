@@ -4,10 +4,10 @@
 <?php print_r($data); ?>  -->
 <body>
 <section id="hero-section">
-    <div class="header-tile-section">
-        <h2>Scan Your Text For Plagiarism</h2>
-        <p>Powered by FreePlagiarismChecks</p>
-        <div class="tool-bar" id="toolbar">
+        <div class="header-tile-section">
+            <h2>Scan Your Text For Plagiarism</h2>
+            <p>Powered by FreePlagiarismChecks</p>
+            <div class="tool-bar" id="toolbar">
             <button title="Copy All Your Text" class="icon-btn" id="copy"><img src="./assets/icons/copy.svg" alt="Copy all text"></button>
             <button title="Delete All Your Text" class="icon-btn" id="del"><img src="./assets/icons/trash.svg" alt="Delete all text"></button>
             <?php if(isset($_GET['query'])) { ?>
@@ -70,12 +70,4 @@
             }
         ?>
 </div>
-<!-- <section id="who-we-are">
-    <div class="content-row">
-<div class="box">1</div>
-<div class="box">2</div>
-<div class="box">3</div>
-</div>
-</section> -->
-</body>
-<script type="text/javascript" src="./assets/main.js"></script>
+<?php include 'footer.php'; ?>

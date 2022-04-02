@@ -1,5 +1,10 @@
 window.onload = function(){ 
-timeout_var = null;
+
+
+
+
+// Auto placeholder text
+  timeout_var = null;
 
 function typeWriter(selector_target, text_list, placeholder = false, i = 0, text_list_i=0, delay_ms=200) {
     if (!i) {
@@ -145,6 +150,4 @@ return_value = typeWriter("#main-text-box", text_list, true);
       closePWindow();
       showpBtn.style.display ='block';
     }
-
-
 }
